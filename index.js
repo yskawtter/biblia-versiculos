@@ -28,7 +28,7 @@ const bibleMain = document.querySelector('.bible-main');
 if (localStorage.getItem(`livro_${nSaveVerse}`)) {
     bibleHidden?.classList.remove('hidden');
     bibleSave?.classList.remove('hidden');
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         if (localStorage[`livro_${i}`] && localStorage[`versiculo_${i}`] !== undefined) {
             setTimeout(() => {
                 titleBible.textContent = localStorage[`livro_${nSaveVerse}`];
@@ -63,7 +63,7 @@ function bibleVerses(info) {
         else if (setArrayInfo.length === 0) {
             setArrayInfo.push(titleBible.textContent, verseBible.textContent);
         }
-        saveVersicle(info);
+        saveVersicle();
     });
 }
 //4
@@ -103,10 +103,7 @@ function nRnd(higherNum) {
 //calculate data today
 function calculateData() {
     let dateToday = new Date();
-    let day = dateToday.getDate() < 10 ? `0${dateToday.getDate()}` : dateToday.getDate();
-    let month = dateToday.getMonth() < 10 ? `0${dateToday.getMonth()}` : dateToday.getMonth();
-    let year = dateToday.getFullYear();
-    return `${day}/${month}/${year}`;
+    return `${new Intl.DateTimeFormat('pt-BR').format(dateToday)}`;
 }
 //create Element To Save
 function createElements(bookBible, versiculo, dataBible) {
@@ -138,7 +135,7 @@ function createElements(bookBible, versiculo, dataBible) {
 //salvar o versiculo
 let arrSaveVersicle = [];
 let arrEscolhid = [];
-function saveVersicle(info) {
+function saveVersicle() {
     btnToSaveVes.addEventListener('click', (e) => {
         subtitleBible?.classList.remove('hidden');
         if (btnDeleteVerses?.getAttribute('class')?.includes('hidden')) {

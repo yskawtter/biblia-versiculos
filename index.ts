@@ -35,7 +35,7 @@ if(localStorage.getItem(`livro_${nSaveVerse}`)) {
     bibleHidden?.classList.remove('hidden')
     bibleSave?.classList.remove('hidden')
 
-    for(let i = 0; i < 10; i++) {
+    for(let i = 0; i < 20; i++) {
         
     if(localStorage[`livro_${i}`] &&  localStorage[`versiculo_${i}`] !== undefined) {
 
@@ -66,7 +66,6 @@ if(bible?.getAttribute('class') === 'bible') {
 
 function bibleVerses(info: any) {
 
-    
     let nameBook = info[0]
     let numberBook = info[1]
     let verseBook = info[2]
@@ -85,7 +84,7 @@ function bibleVerses(info: any) {
         } else if (setArrayInfo.length === 0) {
             setArrayInfo.push(titleBible.textContent, verseBible.textContent)
         }
-        saveVersicle(info)
+        saveVersicle()
     })
 
     
@@ -116,9 +115,7 @@ function addBtns(nameBtn: HTMLDivElement, cbVerses:object) {
 }
 //2
 function generateVerses(typeKeyWord: any) {
-    
     let generateRndNumb = nRnd(typeKeyWord.length)
-
     bibleVerses(typeKeyWord[generateRndNumb])
     setTimeout(() => {
         bibleHidden?.classList.remove('hidden')
@@ -131,10 +128,7 @@ function nRnd(higherNum: number) {
 //calculate data today
 function calculateData() {
     let dateToday = new Date()
-    let day = dateToday.getDate() < 10 ? `0${dateToday.getDate()}` : dateToday.getDate()
-    let month = dateToday.getMonth() < 10 ?`0${dateToday.getMonth()}` : dateToday.getMonth()
-    let year = dateToday.getFullYear()
-    return `${day}/${month}/${year}`
+    return `${new Intl.DateTimeFormat('pt-BR').format(dateToday)}`
 }
 //create Element To Save
 function createElements(bookBible: string, versiculo: string, dataBible: string) {
@@ -166,7 +160,7 @@ function createElements(bookBible: string, versiculo: string, dataBible: string)
 //salvar o versiculo
 let arrSaveVersicle: any = []
 let arrEscolhid: any = []
-function saveVersicle(info: any) {
+function saveVersicle() {
             btnToSaveVes.addEventListener('click', (e) => {
                 subtitleBible?.classList.remove('hidden')
                 if(btnDeleteVerses?.getAttribute('class')?.includes('hidden')) {
